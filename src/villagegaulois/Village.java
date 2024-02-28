@@ -10,7 +10,7 @@ public class Village {
 	private int nbVillageois = 0;
 	private Marche marche;
 
-	public Village(String nom, int nbVillageoisMaximum) {
+	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
 		marche = new Marche(nbEtals);
@@ -68,8 +68,11 @@ public class Village {
 			return null;
 		}
 		
+		
+		
 		private String afficherMarche() {
 			int nbEtalVide = 0;
+			//StringBuilder Final = new StringBuilder();
 			String Final = "";
 			for (int i = 0; i < etals.length; i++) {
 				Final += etals[i].afficherEtal();
@@ -125,5 +128,9 @@ public class Village {
 			}
 		}
 		return chaine.toString();
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 }
