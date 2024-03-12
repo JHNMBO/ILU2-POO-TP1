@@ -26,15 +26,16 @@ public class Etal {
 	}
 
 	public String libererEtal() {
-		etalOccupe = false;
-		StringBuilder chaine = new StringBuilder(
-				"Le vendeur " + vendeur.getNom() + " quitte son étal, ");
-		int produitVendu = quantiteDebutMarche - quantite;
-		if (produitVendu > 0) {
-			chaine.append(
-					"il a vendu " + produitVendu + " parmi " + produit + ".\n");
-		} else {
-			chaine.append("il n'a malheureusement rien vendu.\n");
+		StringBuilder chaine = new StringBuilder("");
+		if (etalOccupe) {
+			etalOccupe = false;
+			chaine.append("Le vendeur " + vendeur.getNom() + " quitte son étal, ");
+			int produitVendu = quantiteDebutMarche - quantite;
+			if (produitVendu > 0) {
+				chaine.append("il a vendu " + produitVendu + " parmi " + produit + ".\n");
+			} else {
+				chaine.append("il n'a malheureusement rien vendu.\n");
+			}
 		}
 		return chaine.toString();
 	}
@@ -44,12 +45,18 @@ public class Etal {
 			return "L'étal de " + vendeur.getNom() + " est garni de " + quantite
 					+ " " + produit + "\n";
 		}
-		return "L'étal est libre";
+		return "L'étal est libre\n";
 	}
 
-	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
-		if (etalOccupe) {
-			StringBuilder chaine = new StringBuilder();
+	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) throws IllegalArgumentException, IllegalStateException {
+		if (quantiteAcheter<1) {
+			throw new IllegalArgumentException("La quantite à acheter est inférieur à 1");
+		}
+		if(!this.etalOccupe){
+			throw new IllegalStateException("L'étal n'est pas occupé");
+		}
+		StringBuilder chaine = new StringBuilder();
+		try {
 			chaine.append(acheteur.getNom() + " veut acheter " + quantiteAcheter
 					+ " " + produit + " à " + vendeur.getNom());
 			if (quantite == 0) {
@@ -69,13 +76,15 @@ public class Etal {
 						+ ", est ravi de tout trouver sur l'étal de "
 						+ vendeur.getNom() + "\n");
 			}
-			return chaine.toString();
 		}
-		return null;
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return chaine.toString();
 	}
 
 	public boolean contientProduit(String produit) {
-		return this.produit.equals(produit);
+		return this.produit != null && this.produit.equals(produit);
 	}
 
 }
