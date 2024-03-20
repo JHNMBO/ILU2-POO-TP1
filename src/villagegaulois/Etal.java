@@ -49,14 +49,14 @@ public class Etal {
 	}
 
 	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) throws IllegalArgumentException, IllegalStateException {
-		if (quantiteAcheter<1) {
-			throw new IllegalArgumentException("La quantite à acheter est inférieur à 1");
-		}
-		if(!this.etalOccupe){
-			throw new IllegalStateException("L'étal n'est pas occupé");
-		}
 		StringBuilder chaine = new StringBuilder();
 		try {
+			if (quantiteAcheter<1) {
+				throw new IllegalArgumentException("La quantite à acheter est inférieur à 1");
+			}
+			if(!this.etalOccupe){
+				throw new IllegalStateException("L'étal n'est pas occupé");
+			}
 			chaine.append(acheteur.getNom() + " veut acheter " + quantiteAcheter
 					+ " " + produit + " à " + vendeur.getNom());
 			if (quantite == 0) {
@@ -79,6 +79,7 @@ public class Etal {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			return "";
 		}
 		return chaine.toString();
 	}
