@@ -42,42 +42,39 @@ public class Etal {
 
 	public String afficherEtal() {
 		if (etalOccupe) {
-			return "L'étal de " + vendeur.getNom() + " est garni de " + quantite
-					+ " " + produit + "\n";
+			return "L'étal de " + vendeur.getNom() + " est garni de " + quantite + " " + produit + "\n";
 		}
 		return "L'étal est libre\n";
 	}
 
-	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) throws IllegalArgumentException, IllegalStateException {
+	public String acheterProduit(int quantiteAcheter, Gaulois acheteur)
+			throws IllegalArgumentException, IllegalStateException {
 		StringBuilder chaine = new StringBuilder();
+		if (quantiteAcheter < 1) {
+			throw new IllegalArgumentException("La quantite à acheter est inférieur à 1");
+		}
+		if (!this.etalOccupe) {
+			throw new IllegalStateException("L'étal n'est pas occupé");
+		}
 		try {
-			if (quantiteAcheter<1) {
-				throw new IllegalArgumentException("La quantite à acheter est inférieur à 1");
-			}
-			if(!this.etalOccupe){
-				throw new IllegalStateException("L'étal n'est pas occupé");
-			}
-			chaine.append(acheteur.getNom() + " veut acheter " + quantiteAcheter
-					+ " " + produit + " à " + vendeur.getNom());
+			chaine.append(
+					acheteur.getNom() + " veut acheter " + quantiteAcheter + " " + produit + " à " + vendeur.getNom());
 			if (quantite == 0) {
 				chaine.append(", malheureusement il n'y en a plus !");
 				quantiteAcheter = 0;
 			}
 			if (quantiteAcheter > quantite) {
-				chaine.append(", comme il n'y en a plus que " + quantite + ", "
-						+ acheteur.getNom() + " vide l'étal de "
+				chaine.append(", comme il n'y en a plus que " + quantite + ", " + acheteur.getNom() + " vide l'étal de "
 						+ vendeur.getNom() + ".\n");
 				quantiteAcheter = quantite;
 				quantite = 0;
 			}
 			if (quantite != 0) {
 				quantite -= quantiteAcheter;
-				chaine.append(". " + acheteur.getNom()
-						+ ", est ravi de tout trouver sur l'étal de "
-						+ vendeur.getNom() + "\n");
+				chaine.append(". " + acheteur.getNom() + ", est ravi de tout trouver sur l'étal de " + vendeur.getNom()
+						+ "\n");
 			}
-		}
-		catch (Exception e) {
+		} catch (IllegalArgumentException e) { // Faut preciser l'exception
 			e.printStackTrace();
 			return "";
 		}
