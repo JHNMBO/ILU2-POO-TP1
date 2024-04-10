@@ -26,7 +26,7 @@ public class Etal {
 	}
 
 	public String libererEtal() {
-		StringBuilder chaine = new StringBuilder("");
+		StringBuilder chaine = new StringBuilder(""); //Manque des exceptions
 		if (etalOccupe) {
 			etalOccupe = false;
 			chaine.append("Le vendeur " + vendeur.getNom() + " quitte son étal, ");

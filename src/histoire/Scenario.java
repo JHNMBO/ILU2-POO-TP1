@@ -28,7 +28,7 @@ public class Scenario {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally {
+		finally { // pas de finally et il manque des exceptions
 			System.out.println(village.rechercherVendeursProduit("fleurs"));
 			System.out.println(village.installerVendeur(bonemine, "fleurs", 20));
 			System.out.println(village.rechercherVendeursProduit("fleurs"));
