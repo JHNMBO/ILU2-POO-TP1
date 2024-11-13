@@ -65,18 +65,20 @@ public class Village {
 			return null;
 		}
 
-		private void afficherMarche() {
+		private String afficherMarche() {
 			int nbEtalLibre = 0;
+			StringBuilder text = new StringBuilder();
 			for (int i = 0; i < etals.length; i++) {
 				if (etals[i].isEtalOccupe()) {
 					etals[i].afficherEtal();
-				} else {
+					text.append(etals[i].afficherEtal());
 				}
 				nbEtalLibre++;
 			}
 			if (nbEtalLibre != 0) {
 				System.out.println("Il reste " + nbEtalLibre + " �tals non utilis�s dans le march�.\n");
 			}
+			return text.toString();
 		}
 
 	} // Fin de la classe interne
